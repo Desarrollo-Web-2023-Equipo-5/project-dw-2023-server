@@ -1,7 +1,9 @@
 import cors from 'cors';
 import express, { Application } from 'express';
+import morgan from 'morgan';
 import userRoutes from '../routes/user.routes';
 import { dbConnection } from '../db/config';
+import { consola } from 'consola';
 
 class Server {
 	private app: Application;
@@ -28,7 +30,7 @@ class Server {
 
 	public listen(): void {
 		this.app.listen(this.port, () => {
-			console.log(`Server running on port `, this.port);
+			consola.info(`Server running on port `, this.port);
 		});
 	}
 
@@ -42,6 +44,15 @@ class Server {
 
 		// Read and parse body
 		this.app.use(express.json());
+
+		// Public folder
+		//this.app.use(express.static('public'));
+
+		// File upload
+		// this.app.use(fileUpload());
+
+		// Morgan
+		this.app.use(morgan('dev'));
 	}
 
 	private routes(): void {

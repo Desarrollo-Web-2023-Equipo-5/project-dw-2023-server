@@ -76,6 +76,7 @@ router.delete(
 	deleteUser
 );
 
+// Get all users
 router.get('/', getAllUsers);
 
 export default router;
