@@ -4,6 +4,8 @@ export enum GeneralErrorCodes {
 	BadRequest = 'ERR_BAD_REQUEST',
 	InternalServerError = 'ERR_INTERNAL_SERVER_ERROR',
 	ErrorOnJWTGeneration = 'ERR_ERROR_ON_JWT_GENERATION',
+	SessionNotFound = 'ERR_SESSION_NOT_FOUND',
+	SessionExpired = 'ERR_SESSION_EXPIRED',
 }
 
 export enum UserErrorCodes {

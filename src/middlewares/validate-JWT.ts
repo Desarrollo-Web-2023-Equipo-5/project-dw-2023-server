@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
-import { TokenPayload } from '../interfaces/token.interface';
 import { UserErrorCodes } from '../helpers/error-codes';
 
 export const validateJWT = async (

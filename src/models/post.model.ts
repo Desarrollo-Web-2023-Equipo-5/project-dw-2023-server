@@ -17,11 +17,11 @@ const PostSchema = new Schema<IPost>(
 			default: false,
 		},
 		createdAt: {
-			type: Number,
+			type: Date,
 			default: Date.now(),
 		},
 		updatedAt: {
-			type: Number,
+			type: Date,
 			default: Date.now(),
 		},
 	},

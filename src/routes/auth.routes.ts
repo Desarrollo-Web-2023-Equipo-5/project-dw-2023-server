@@ -1,9 +1,11 @@
 import { Router } from 'express';
-import { login } from '../controllers/auth.controller';
+import { login, logout, logoutAll } from '../controllers/auth.controller';
 import { validateFields } from '../middlewares/validate-fields';
 import { check } from 'express-validator';
 import { emailExists } from '../helpers/db-validators';
 import { UserErrorCodes } from '../helpers/error-codes';
+import { validateSession } from '../middlewares/validate-session';
+import { validateJWT } from '../middlewares/validate-JWT';
 
 export const router = Router();
 
@@ -19,5 +21,9 @@ router.post(
 	],
 	login
 );
+
+router.post('/logout', logout);
+
+router.post('/logout-all', [validateSession, validateJWT], logoutAll);
 
 export default router;

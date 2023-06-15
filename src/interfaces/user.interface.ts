@@ -6,7 +6,8 @@ export interface IUser {
 	email: string;
 	password: string;
 	img: string;
-	createdAt?: number;
-	updatedAt?: number;
+	createdAt?: Date;
+	updatedAt?: Date;
 	deleted?: boolean;
+	sessions?: Types.ObjectId[];
 }
