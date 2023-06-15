@@ -5,7 +5,7 @@ export const dbConnection = async () => {
 	consola.start('Connecting to database...');
 	try {
 		await mongoose.connect(process.env.MONGO_DB_CNN!, {
-			dbName: 'dnt-db',
+			dbName: process.env.DB_NAME,
 		});
 
 		consola.success('Database ONLINE');

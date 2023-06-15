@@ -3,6 +3,7 @@ export enum GeneralErrorCodes {
 	NotFound = 'ERR_RESOURCE_NOT_FOUND',
 	BadRequest = 'ERR_BAD_REQUEST',
 	InternalServerError = 'ERR_INTERNAL_SERVER_ERROR',
+	ErrorOnJWTGeneration = 'ERR_ERROR_ON_JWT_GENERATION',
 }
 
 export enum UserErrorCodes {
@@ -14,4 +15,6 @@ export enum UserErrorCodes {
 	UserEmailAlreadyExists = 'ERR_USER_EMAIL_ALREADY_EXISTS',
 	UserEmailInvalid = 'ERR_USER_EMAIL_INVALID',
 	UserPasswordRequired = 'ERR_USER_PASSWORD_REQUIRED',
+	UserPasswordInvalid = 'ERR_USER_PASSWORD_INVALID',
+	UserNotAuthenticated = 'ERR_USER_NOT_AUTHENTICATED',
 }

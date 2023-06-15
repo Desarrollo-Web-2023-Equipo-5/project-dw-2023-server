@@ -1,7 +1,9 @@
 import cors from 'cors';
 import express, { Application } from 'express';
 import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 import userRoutes from '../routes/user.routes';
+import authRoutes from '../routes/auth.routes';
 import { dbConnection } from '../db/config';
 import { consola } from 'consola';
 
@@ -9,6 +11,7 @@ class Server {
 	private app: Application;
 	private port: string;
 	private apiPaths = {
+		auth: '/api/auth',
 		users: '/api/users',
 		posts: '/api/posts',
 		comments: '/api/comments',
@@ -53,9 +56,13 @@ class Server {
 
 		// Morgan
 		this.app.use(morgan('dev'));
+
+		// Cookie parser
+		this.app.use(cookieParser());
 	}
 
 	private routes(): void {
+		this.app.use(this.apiPaths.auth, authRoutes);
 		this.app.use(this.apiPaths.users, userRoutes);
 	}
 }

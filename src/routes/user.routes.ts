@@ -14,6 +14,7 @@ import {
 	userNameExists,
 } from '../helpers/db-validators';
 import { UserErrorCodes } from '../helpers/error-codes';
+import { validateJWT } from '../middlewares/validate-JWT';
 
 export const router = Router();
 
@@ -69,6 +70,7 @@ router.delete(
 	'/:id',
 	[
 		// middlewares
+		validateJWT,
 		check('id', 'Id is not valid').isMongoId(),
 		check('id').custom(userExists),
 		validateFields,
