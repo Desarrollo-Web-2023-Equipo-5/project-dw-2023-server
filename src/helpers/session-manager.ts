@@ -52,7 +52,7 @@ export const deleteSession = async (sessionId: any) => {
 		}
 
 		user.sessions = user.sessions!.filter(
-			sessionId => sessionId.toString() !== session._id.toString()
+			aSession => aSession._id.toString() !== session._id.toString()
 		);
 
 		await session.deleteOne();
