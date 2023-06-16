@@ -1,6 +1,5 @@
 import mongoose, { Schema } from 'mongoose';
 import { IUser } from '../interfaces/user.interface';
-import sessions from 'express-session';
 
 const UserSchema = new Schema<IUser>(
 	{
