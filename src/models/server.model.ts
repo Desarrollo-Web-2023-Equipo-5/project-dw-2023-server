@@ -1,12 +1,17 @@
 import cors from 'cors';
 import express, { Application } from 'express';
+import morgan from 'morgan';
+import cookieParser from 'cookie-parser';
 import userRoutes from '../routes/user.routes';
+import authRoutes from '../routes/auth.routes';
 import { dbConnection } from '../db/config';
+import { consola } from 'consola';
 
 class Server {
 	private app: Application;
 	private port: string;
 	private apiPaths = {
+		auth: '/api/auth',
 		users: '/api/users',
 		posts: '/api/posts',
 		comments: '/api/comments',
@@ -28,7 +33,7 @@ class Server {
 
 	public listen(): void {
 		this.app.listen(this.port, () => {
-			console.log(`Server running on port `, this.port);
+			consola.info(`Server running on port `, this.port);
 		});
 	}
 
@@ -42,9 +47,22 @@ class Server {
 
 		// Read and parse body
 		this.app.use(express.json());
+
+		// Public folder
+		//this.app.use(express.static('public'));
+
+		// File upload
+		// this.app.use(fileUpload());
+
+		// Morgan
+		this.app.use(morgan('dev'));
+
+		// Cookie parser
+		this.app.use(cookieParser());
 	}
 
 	private routes(): void {
+		this.app.use(this.apiPaths.auth, authRoutes);
 		this.app.use(this.apiPaths.users, userRoutes);
 	}
 }

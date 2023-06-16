@@ -9,7 +9,7 @@ export const emailExists = async (email: string) => {
 };
 
 export const userExists = async (id: string) => {
-	const doesUserExists = await User.findById(id);
+	const doesUserExists = await User.findOne({ _id: id, deleted: false });
 	if (!doesUserExists) {
 		throw new Error(UserErrorCodes.UserNotFound);
 	}

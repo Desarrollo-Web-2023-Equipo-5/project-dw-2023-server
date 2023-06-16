@@ -14,6 +14,8 @@ import {
 	userNameExists,
 } from '../helpers/db-validators';
 import { UserErrorCodes } from '../helpers/error-codes';
+import { validateJWT } from '../middlewares/validate-JWT';
+import { validateSession } from '../middlewares/validate-session';
 
 export const router = Router();
 
@@ -45,6 +47,8 @@ router.get(
 	'/:id',
 	[
 		// middlewares
+		validateSession,
+		validateJWT,
 		check('id', 'Id is not valid').isMongoId(),
 		check('id').custom(userExists),
 		validateFields,
@@ -57,6 +61,8 @@ router.put(
 	'/:id',
 	[
 		// middlewares
+		validateSession,
+		validateJWT,
 		check('id', 'Id is not valid').isMongoId(),
 		check('id').custom(userExists),
 		validateFields,
@@ -69,6 +75,8 @@ router.delete(
 	'/:id',
 	[
 		// middlewares
+		validateSession,
+		validateJWT,
 		check('id', 'Id is not valid').isMongoId(),
 		check('id').custom(userExists),
 		validateFields,
@@ -76,6 +84,7 @@ router.delete(
 	deleteUser
 );
 
-router.get('/', getAllUsers);
+// Get all users
+router.get('/', [validateSession, validateJWT], getAllUsers);
 
 export default router;

@@ -27,11 +27,11 @@ const CommentSchema = new Schema<IComment>(
 			default: false,
 		},
 		createdAt: {
-			type: Number,
+			type: Date,
 			default: Date.now(),
 		},
 		updatedAt: {
-			type: Number,
+			type: Date,
 			default: Date.now(),
 		},
 	},

@@ -41,12 +41,10 @@ export const createUser = async (req: Request, res: Response) => {
 export const getUserById = async (req: Request, res: Response) => {
 	const { id } = req.params;
 
-	const user = await User.findById(id);
+	const user = await User.findById(id).select('id username email img');
 
 	return res.status(200).json({
-		id: user?._id,
-		username: user?.username,
-		img: user?.img,
+		user,
 	});
 };
 
