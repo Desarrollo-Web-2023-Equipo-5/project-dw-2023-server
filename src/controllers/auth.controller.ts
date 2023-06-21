@@ -78,9 +78,10 @@ export const login = async (req: Request, res: Response) => {
 };
 
 export const logout = async (req: Request, res: Response) => {
-	const useCookies = process.env.USE_COOKIES === 'true';
-
-	const token = useCookies ? req.cookies['x-token'] : req.header('x-token');
+	const token =
+		process.env.USE_COOKIES === 'true'
+			? req.cookies['x-token']
+			: req.header('x-token');
 
 	if (!token) {
 		return res.status(400).json({
@@ -107,7 +108,7 @@ export const logout = async (req: Request, res: Response) => {
 	try {
 		await deleteSession(sub);
 		res.clearCookie('x-token');
-		res.sendStatus(200);
+		res.status(200).json({});
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({
@@ -121,9 +122,10 @@ export const logout = async (req: Request, res: Response) => {
 };
 
 export const logoutAll = async (req: Request, res: Response) => {
-	const useCookies = process.env.USE_COOKIES === 'true';
-
-	const token = useCookies ? req.cookies['x-token'] : req.header('x-token');
+	const token =
+		process.env.USE_COOKIES === 'true'
+			? req.cookies['x-token']
+			: req.header('x-token');
 
 	if (!token) {
 		return res.status(400).json({
@@ -155,7 +157,7 @@ export const logoutAll = async (req: Request, res: Response) => {
 	try {
 		await terminateAllSessions(currentSession!.userRef);
 		res.clearCookie('x-token');
-		res.sendStatus(200);
+		res.status(200).json({});
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({
