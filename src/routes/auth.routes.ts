@@ -1,5 +1,10 @@
 import { Router } from 'express';
-import { login, logout, logoutAll } from '../controllers/auth.controller';
+import {
+	login,
+	logout,
+	logoutAll,
+	renewToken,
+} from '../controllers/auth.controller';
 import { validateFields } from '../middlewares/validate-fields';
 import { check } from 'express-validator';
 import { emailExists } from '../helpers/db-validators';
@@ -25,5 +30,7 @@ router.post(
 router.post('/logout', logout);
 
 router.post('/logout-all', [validateSession, validateJWT], logoutAll);
+
+router.post('/renew', [validateSession, validateJWT], renewToken);
 
 export default router;
