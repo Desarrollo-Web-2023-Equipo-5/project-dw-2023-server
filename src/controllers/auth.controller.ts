@@ -19,32 +19,20 @@ export const login = async (req: Request, res: Response) => {
 		const user = await User.findOne({ email });
 		if (!user) {
 			return res.status(400).json({
-				errors: {
-					user: {
-						msg: UserErrorCodes.UserEmailInvalid,
-					},
-				},
+				errors: [{ msg: UserErrorCodes.UserEmailInvalid }],
 			});
 		}
 
 		if (user.deleted) {
 			return res.status(404).json({
-				errors: {
-					user: {
-						msg: UserErrorCodes.UserNotFound,
-					},
-				},
+				errors: [{ msg: UserErrorCodes.UserNotFound }],
 			});
 		}
 
 		const validPassword = await bcrypt.compare(password, user.password);
 		if (!validPassword) {
 			return res.status(400).json({
-				errors: {
-					user: {
-						msg: UserErrorCodes.UserPasswordInvalid,
-					},
-				},
+				errors: [{ msg: UserErrorCodes.UserPasswordInvalid }],
 			});
 		}
 
@@ -68,11 +56,7 @@ export const login = async (req: Request, res: Response) => {
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({
-			errors: {
-				server: {
-					msg: GeneralErrorCodes.InternalServerError,
-				},
-			},
+			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
 		});
 	}
 };
@@ -85,11 +69,7 @@ export const logout = async (req: Request, res: Response) => {
 
 	if (!token) {
 		return res.status(400).json({
-			errors: {
-				session: {
-					msg: GeneralErrorCodes.SessionNotFound,
-				},
-			},
+			errors: [{ msg: GeneralErrorCodes.SessionNotFound }],
 		});
 	}
 
@@ -97,11 +77,7 @@ export const logout = async (req: Request, res: Response) => {
 
 	if (!sub) {
 		return res.status(400).json({
-			errors: {
-				session: {
-					msg: GeneralErrorCodes.SessionNotFound,
-				},
-			},
+			errors: [{ msg: GeneralErrorCodes.SessionNotFound }],
 		});
 	}
 
@@ -112,11 +88,7 @@ export const logout = async (req: Request, res: Response) => {
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({
-			errors: {
-				server: {
-					msg: GeneralErrorCodes.InternalServerError,
-				},
-			},
+			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
 		});
 	}
 };
@@ -129,11 +101,7 @@ export const logoutAll = async (req: Request, res: Response) => {
 
 	if (!token) {
 		return res.status(400).json({
-			errors: {
-				session: {
-					msg: GeneralErrorCodes.SessionNotFound,
-				},
-			},
+			errors: [{ msg: GeneralErrorCodes.SessionNotFound }],
 		});
 	}
 
@@ -141,11 +109,7 @@ export const logoutAll = async (req: Request, res: Response) => {
 
 	if (!sub) {
 		return res.status(400).json({
-			errors: {
-				session: {
-					msg: GeneralErrorCodes.SessionNotFound,
-				},
-			},
+			errors: [{ msg: GeneralErrorCodes.SessionNotFound }],
 		});
 	}
 
@@ -161,11 +125,7 @@ export const logoutAll = async (req: Request, res: Response) => {
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({
-			errors: {
-				server: {
-					msg: GeneralErrorCodes.InternalServerError,
-				},
-			},
+			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
 		});
 	}
 };
