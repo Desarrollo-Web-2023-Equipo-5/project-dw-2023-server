@@ -156,7 +156,7 @@ export const renewToken = async (req: Request, res: Response) => {
 			.select('userRef')
 			.populate('userRef');
 		const user = session?.userRef;
-		const { username, img } = user! as any;
+		const { _id, username, img } = user! as any;
 
 		const useCookies = process.env.USE_COOKIES === 'true';
 		if (useCookies) {
@@ -168,6 +168,7 @@ export const renewToken = async (req: Request, res: Response) => {
 			res.status(200).json({
 				ok: true,
 				user: {
+					id: _id,
 					username,
 					img,
 				},
@@ -176,6 +177,7 @@ export const renewToken = async (req: Request, res: Response) => {
 			return res.status(200).json({
 				ok: true,
 				user: {
+					id: _id,
 					username,
 					img,
 				},
