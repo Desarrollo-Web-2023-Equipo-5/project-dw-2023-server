@@ -20,3 +20,16 @@ export enum UserErrorCodes {
 	UserPasswordInvalid = 'ERR_USER_PASSWORD_INVALID',
 	UserNotAuthenticated = 'ERR_USER_NOT_AUTHENTICATED',
 }
+
+export enum CommentErrorCodes {
+	CommentNotFound = 'ERR_COMMENT_NOT_FOUND',
+	CommentIdRequired = 'ERR_COMMENT_ID_REQUIRED',
+	CommentContentRequired = 'ERR_COMMENT_CONTENT_REQUIRED',
+	CommentContentInvalid = 'ERR_COMMENT_CONTENT_INVALID',
+	CommentCreatorRequired = 'ERR_COMMENT_CREATOR_REQUIRED',
+	CommentCreatorInvalid = 'ERR_COMMENT_CREATOR_INVALID',
+	CommentTypeRequired = 'ERR_COMMENT_TYPE_REQUIRED',
+	CommentTypeInvalid = 'ERR_COMMENT_TYPE_INVALID',
+	CommentRefRequired = 'ERR_COMMENT_REF_REQUIRED',
+	OnlyOneCommentRefRequired = 'ERR_ONLY_ONE_COMMENT_REF_REQUIRED',
+}
