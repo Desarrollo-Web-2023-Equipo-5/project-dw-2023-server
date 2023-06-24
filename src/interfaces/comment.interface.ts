@@ -5,7 +5,7 @@ export interface IComment {
 	userRef?: Types.ObjectId;
 	postRef?: Types.ObjectId;
 	creator: Types.ObjectId;
-	message: string;
+	content: string;
 	createdAt?: number;
 	updatedAt?: number;
 	deleted: boolean;
