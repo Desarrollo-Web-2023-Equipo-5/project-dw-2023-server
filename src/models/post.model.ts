@@ -1,9 +1,9 @@
 import mongoose, { Schema } from 'mongoose';
-import { IPost } from '../interfaces/post.interface';
+import { ICampaign } from '../interfaces/campaign.interface';
 
-const PostSchema = new Schema<IPost>(
+const CampaignSchema = new Schema<ICampaign>(
 	{
-		message: {
+		description: {
 			type: String,
 			required: true,
 		},
@@ -24,10 +24,21 @@ const PostSchema = new Schema<IPost>(
 			type: Date,
 			default: Date.now(),
 		},
+		title: {
+			type: String,
+			required: true,
+		},
+		currentPlayers: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'User',
+				default: [],
+			},
+		],
 	},
 	{ versionKey: false }
 );
 
-const Post = mongoose.model<IPost>('Post', PostSchema);
+const Campaign = mongoose.model<ICampaign>('Campaign', CampaignSchema);
 
-export default Post;
+export default Campaign;

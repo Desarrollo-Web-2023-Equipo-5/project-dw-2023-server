@@ -11,6 +11,7 @@ export enum GeneralErrorCodes {
 export enum UserErrorCodes {
 	UserNotFound = 'ERR_USER_NOT_FOUND',
 	UserIdRequired = 'ERR_USER_ID_REQUIRED',
+	UserIdInvalid = 'ERR_USER_ID_INVALID',
 	UserNameRequired = 'ERR_USER_NAME_REQUIRED',
 	UserNameAlreadyExists = 'ERR_USER_NAME_ALREADY_EXISTS',
 	UserEmailRequired = 'ERR_USER_EMAIL_REQUIRED',
@@ -32,4 +33,15 @@ export enum CommentErrorCodes {
 	CommentTypeInvalid = 'ERR_COMMENT_TYPE_INVALID',
 	CommentRefRequired = 'ERR_COMMENT_REF_REQUIRED',
 	OnlyOneCommentRefRequired = 'ERR_ONLY_ONE_COMMENT_REF_REQUIRED',
+}
+
+export enum CampaignErrorCodes {
+	CampaignNotFound = 'ERR_CAMPAIGN_NOT_FOUND',
+	CampaignIdRequired = 'ERR_CAMPAIGN_ID_REQUIRED',
+	CampaignIdInvalid = 'ERR_CAMPAIGN_ID_INVALID',
+	CampaignTitleRequired = 'ERR_CAMPAIGN_TITLE_REQUIRED',
+	CampaignTitleInvalid = 'ERR_CAMPAIGN_TITLE_INVALID',
+	CampaignDescriptionRequired = 'ERR_CAMPAIGN_DESCRIPTION_REQUIRED',
+	CampaignDescriptionInvalid = 'ERR_CAMPAIGN_DESCRIPTION_INVALID',
+	CampaignPlayersNeededRequired = 'ERR_CAMPAIGN_PLAYERS_NEEDED_REQUIRED',
 }
