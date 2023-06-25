@@ -35,6 +35,10 @@ const CampaignSchema = new Schema<ICampaign>(
 				default: [],
 			},
 		],
+		playersNeeded: {
+			type: Number,
+			required: true,
+		},
 	},
 	{ versionKey: false }
 );
