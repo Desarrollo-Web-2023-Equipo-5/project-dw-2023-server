@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import userRoutes from '../routes/user.routes';
 import authRoutes from '../routes/auth.routes';
 import commentRoutes from '../routes/comment.routes';
+import campaignRoutes from '../routes/campaign.routes';
 import { dbConnection } from '../db/config';
 import { consola } from 'consola';
 
@@ -14,7 +15,7 @@ class Server {
 	private apiPaths = {
 		auth: '/api/auth',
 		users: '/api/users',
-		posts: '/api/posts',
+		campaigns: '/api/campaigns',
 		comments: '/api/comments',
 	};
 
@@ -66,6 +67,7 @@ class Server {
 		this.app.use(this.apiPaths.auth, authRoutes);
 		this.app.use(this.apiPaths.users, userRoutes);
 		this.app.use(this.apiPaths.comments, commentRoutes);
+		this.app.use(this.apiPaths.campaigns, campaignRoutes);
 	}
 }
 

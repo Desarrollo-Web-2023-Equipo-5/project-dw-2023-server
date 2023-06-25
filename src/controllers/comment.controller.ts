@@ -128,12 +128,10 @@ export const updateComment = async (req: Request, res: Response) => {
 		comment.content = content;
 		await comment.save();
 
-		return res
-			.status(200)
-			.json({
-				msg: 'Comment updated',
-				comment: { id: comment.id, content: comment.content },
-			});
+		return res.status(200).json({
+			msg: 'Comment updated',
+			comment: { id: comment.id, content: comment.content },
+		});
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({
