@@ -1,14 +1,17 @@
 import { Router } from 'express';
 import { validateJWT } from '../middlewares/validate-JWT';
 import { validateSession } from '../middlewares/validate-session';
-import { createCampaign } from '../controllers/campaign.controller';
+import {
+	createCampaign,
+	getCampaigns,
+} from '../controllers/campaign.controller';
 import { check } from 'express-validator';
 import { CampaignErrorCodes, UserErrorCodes } from '../helpers/error-codes';
 import { validateFields } from '../middlewares/validate-fields';
 
 export const router = Router();
 
-router.get('/');
+router.get('/', [validateSession, validateJWT], getCampaigns);
 
 router.post(
 	'/',
