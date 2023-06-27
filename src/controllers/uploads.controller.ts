@@ -36,7 +36,7 @@ export const updateImage = async (req: Request, res: Response) => {
 
 	if (!collection || !id) {
 		return res.status(400).json({
-			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
+			errors: [{ msg: GeneralErrorCodes.BadRequest }],
 		});
 	}
 
@@ -46,7 +46,7 @@ export const updateImage = async (req: Request, res: Response) => {
 		case 'users':
 			model = await User.findById(id);
 			if (!model) {
-				return res.status(400).json({
+				return res.status(404).json({
 					errors: [{ msg: UserErrorCodes.UserNotFound }],
 				});
 			}
@@ -55,7 +55,7 @@ export const updateImage = async (req: Request, res: Response) => {
 		case 'campaigns':
 			model = await Campaign.findById(id);
 			if (!model) {
-				return res.status(400).json({
+				return res.status(404).json({
 					errors: [{ msg: CampaignErrorCodes.CampaignNotFound }],
 				});
 			}
@@ -100,7 +100,7 @@ export const updateImageCloudinary = async (req: Request, res: Response) => {
 
 	if (!collection || !id) {
 		return res.status(400).json({
-			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
+			errors: [{ msg: GeneralErrorCodes.BadRequest }],
 		});
 	}
 
@@ -110,7 +110,7 @@ export const updateImageCloudinary = async (req: Request, res: Response) => {
 		case 'users':
 			model = await User.findById(id);
 			if (!model) {
-				return res.status(400).json({
+				return res.status(404).json({
 					errors: [{ msg: UserErrorCodes.UserNotFound }],
 				});
 			}
@@ -119,7 +119,7 @@ export const updateImageCloudinary = async (req: Request, res: Response) => {
 		case 'campaigns':
 			model = await Campaign.findById(id);
 			if (!model) {
-				return res.status(400).json({
+				return res.status(404).json({
 					errors: [{ msg: CampaignErrorCodes.CampaignNotFound }],
 				});
 			}
@@ -159,7 +159,7 @@ export const getImage = async (req: Request, res: Response) => {
 
 	if (!collection || !id) {
 		return res.status(400).json({
-			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
+			errors: [{ msg: GeneralErrorCodes.BadRequest }],
 		});
 	}
 
@@ -169,7 +169,7 @@ export const getImage = async (req: Request, res: Response) => {
 		case 'users':
 			model = await User.findById(id);
 			if (!model) {
-				return res.status(400).json({
+				return res.status(404).json({
 					errors: [{ msg: UserErrorCodes.UserNotFound }],
 				});
 			}
@@ -178,7 +178,7 @@ export const getImage = async (req: Request, res: Response) => {
 		case 'campaigns':
 			model = await Campaign.findById(id);
 			if (!model) {
-				return res.status(400).json({
+				return res.status(404).json({
 					errors: [{ msg: CampaignErrorCodes.CampaignNotFound }],
 				});
 			}
