@@ -56,9 +56,6 @@ class Server {
 
 		// Public folder
 		this.app.use(express.static(path.join(__dirname, '../public')));
-		this.app.get('*', (req: Request, res: Response) => {
-			return res.sendFile(path.join(__dirname, '../public', 'index.html'));
-		});
 
 		// File upload
 		// this.app.use(fileUpload());
@@ -85,6 +82,9 @@ class Server {
 		this.app.use(this.apiPaths.comments, commentRoutes);
 		this.app.use(this.apiPaths.campaigns, campaignRoutes);
 		this.app.use(this.apiPaths.uploads, uploadsRoutes);
+		this.app.get('*', (req: Request, res: Response) => {
+			res.sendFile(path.join(__dirname, '../public', 'index.html'));
+		});
 	}
 }
 
