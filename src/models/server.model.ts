@@ -1,5 +1,5 @@
 import cors from 'cors';
-import express, { Application } from 'express';
+import express, { Application, Request, Response } from 'express';
 import morgan from 'morgan';
 import cookieParser from 'cookie-parser';
 import userRoutes from '../routes/user.routes';
@@ -10,6 +10,7 @@ import uploadsRoutes from '../routes/upload.routes';
 import { dbConnection } from '../db/config';
 import { consola } from 'consola';
 import fileUpload from 'express-fileupload';
+import path from 'path';
 
 class Server {
 	private app: Application;
@@ -54,7 +55,10 @@ class Server {
 		this.app.use(express.json());
 
 		// Public folder
-		// this.app.use(express.static('public'));
+		this.app.use(express.static(path.join(__dirname, '../public')));
+		this.app.get('*', (req: Request, res: Response) => {
+			return res.sendFile(path.join(__dirname, '../public', 'index.html'));
+		});
 
 		// File upload
 		// this.app.use(fileUpload());

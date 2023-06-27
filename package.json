@@ -4,8 +4,9 @@
 	"description": "",
 	"main": "dist/app.js",
 	"scripts": {
+		"copy-public": "cp -R src/public dist/public",
 		"prebuild": "npx prettier --write . && tslint -c tslint.json -p tsconfig.json --fix",
-		"build": "tsc",
+		"build": "tsc && npm run copy-public",
 		"prestart": "npm run build",
 		"start": "node .",
 		"dev": "npm run prebuild && nodemon ./src/app.ts",
