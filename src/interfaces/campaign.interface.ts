@@ -10,4 +10,5 @@ export interface ICampaign {
 	createdAt?: number;
 	updatedAt?: number;
 	deleted: boolean;
+	img: string;
 }

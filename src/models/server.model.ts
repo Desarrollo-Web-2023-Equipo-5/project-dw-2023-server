@@ -6,8 +6,10 @@ import userRoutes from '../routes/user.routes';
 import authRoutes from '../routes/auth.routes';
 import commentRoutes from '../routes/comment.routes';
 import campaignRoutes from '../routes/campaign.routes';
+import uploadsRoutes from '../routes/upload.routes';
 import { dbConnection } from '../db/config';
 import { consola } from 'consola';
+import fileUpload from 'express-fileupload';
 
 class Server {
 	private app: Application;
@@ -17,6 +19,7 @@ class Server {
 		users: '/api/users',
 		campaigns: '/api/campaigns',
 		comments: '/api/comments',
+		uploads: '/api/uploads',
 	};
 
 	constructor() {
@@ -61,6 +64,15 @@ class Server {
 
 		// Cookie parser
 		this.app.use(cookieParser());
+
+		// File upload - Temp files
+		this.app.use(
+			fileUpload({
+				useTempFiles: true,
+				tempFileDir: '/tmp/',
+				createParentPath: true,
+			})
+		);
 	}
 
 	private routes(): void {
@@ -68,6 +80,7 @@ class Server {
 		this.app.use(this.apiPaths.users, userRoutes);
 		this.app.use(this.apiPaths.comments, commentRoutes);
 		this.app.use(this.apiPaths.campaigns, campaignRoutes);
+		this.app.use(this.apiPaths.uploads, uploadsRoutes);
 	}
 }
 

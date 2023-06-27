@@ -15,6 +15,7 @@ export const validateJWT = async (
 		jwt.verify(token, process.env.JWT_SECRET!);
 		next();
 	} catch (error) {
+		console.error(error);
 		return res.status(401).json({
 			errors: {
 				user: {

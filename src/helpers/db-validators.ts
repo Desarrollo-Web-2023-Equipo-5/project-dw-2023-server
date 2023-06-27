@@ -1,5 +1,5 @@
 import User from '../models/user.model';
-import { UserErrorCodes } from './error-codes';
+import { DbErrors, UserErrorCodes } from './error-codes';
 
 export const emailExists = async (email: string) => {
 	const doesEmailExists = await User.findOne({ email });
@@ -20,4 +20,15 @@ export const userNameExists = async (username: string) => {
 	if (doesUsernameExists) {
 		throw new Error(UserErrorCodes.UserNameAlreadyExists);
 	}
+};
+
+export const allowedCollections = (
+	collection: string,
+	collections: string[]
+) => {
+	const included = collections.includes(collection);
+	if (!included) {
+		throw new Error(DbErrors.CollectionNotSupported);
+	}
+	return true;
 };
