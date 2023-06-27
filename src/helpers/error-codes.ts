@@ -45,3 +45,11 @@ export enum CampaignErrorCodes {
 	CampaignDescriptionInvalid = 'ERR_CAMPAIGN_DESCRIPTION_INVALID',
 	CampaignPlayersNeededRequired = 'ERR_CAMPAIGN_PLAYERS_NEEDED_REQUIRED',
 }
+
+export enum DbErrors {
+	CollectionNotSupported = 'ERR_COLLECTION_NOT_SUPPORTED',
+}
+
+export enum UploadFileErrors {
+	NoFilesToUpload = 'ERR_NO_FILES_TO_UPLOAD',
+}

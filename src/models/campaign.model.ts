@@ -39,6 +39,11 @@ const CampaignSchema = new Schema<ICampaign>(
 			type: Number,
 			required: true,
 		},
+		img: {
+			type: String,
+			default:
+				'https://res.cloudinary.com/djwoedoon/image/upload/v1687835762/unnamed_lm9vnj.png',
+		},
 	},
 	{ versionKey: false }
 );

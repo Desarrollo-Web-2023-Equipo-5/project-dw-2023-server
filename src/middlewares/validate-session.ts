@@ -39,7 +39,6 @@ export const validateSession = async (
 				},
 			});
 		}
-
 		next();
 	} catch (error) {
 		return res.status(401).json({

@@ -9,6 +9,5 @@ export const validateFields = (req: Request, res: Response, next: any) => {
 			errors: errors.array(),
 		});
 	}
-
 	next();
 };
