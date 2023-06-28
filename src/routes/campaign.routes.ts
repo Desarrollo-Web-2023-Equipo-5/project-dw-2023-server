@@ -39,9 +39,9 @@ router.post(
 	createCampaign
 );
 
-router.delete('/:id');
+router.delete('/:id', [validateSession, validateJWT]);
 
-router.put('/:id');
+router.put('/:id', [validateSession, validateJWT]);
 
 router.get('/:id', [validateSession, validateJWT], getCampaignById);
 
