@@ -9,5 +9,6 @@ export interface IUser {
 	createdAt?: Date;
 	updatedAt?: Date;
 	deleted?: boolean;
+	isLookingForGroup?: boolean;
 	sessions?: Types.ObjectId[];
 }
