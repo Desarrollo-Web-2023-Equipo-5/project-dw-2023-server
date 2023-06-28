@@ -36,3 +36,18 @@ export const getCampaigns = async (req: Request, res: Response) => {
 		});
 	}
 };
+
+export const getCampaignById = async (req: Request, res: Response) => {
+	const { id } = req.params;
+
+	try {
+		const campaign = await Campaign.findById(id)
+			.populate('creator', 'username img')
+			.select('creator title description playersNeeded currentPlayers img');
+		return res.status(200).json({ campaign });
+	} catch (error) {
+		return res.status(500).json({
+			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
+		});
+	}
+};
