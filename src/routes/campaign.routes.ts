@@ -3,6 +3,7 @@ import { validateJWT } from '../middlewares/validate-JWT';
 import { validateSession } from '../middlewares/validate-session';
 import {
 	createCampaign,
+	getCampaignById,
 	getCampaigns,
 } from '../controllers/campaign.controller';
 import { check } from 'express-validator';
@@ -41,5 +42,7 @@ router.post(
 router.delete('/:id');
 
 router.put('/:id');
+
+router.get('/:id', [validateSession, validateJWT], getCampaignById);
 
 export default router;
