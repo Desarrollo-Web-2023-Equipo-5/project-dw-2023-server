@@ -3,8 +3,10 @@ import { validateJWT } from '../middlewares/validate-JWT';
 import { validateSession } from '../middlewares/validate-session';
 import {
 	createCampaign,
+	deleteCampaign,
 	getCampaignById,
 	getCampaigns,
+	updateCampaign,
 } from '../controllers/campaign.controller';
 import { check } from 'express-validator';
 import { CampaignErrorCodes, UserErrorCodes } from '../helpers/error-codes';
@@ -39,9 +41,9 @@ router.post(
 	createCampaign
 );
 
-router.delete('/:id');
+router.delete('/:id', [validateSession, validateJWT], deleteCampaign);
 
-router.put('/:id');
+router.put('/:id', [validateSession, validateJWT], updateCampaign);
 
 router.get('/:id', [validateSession, validateJWT], getCampaignById);
 
