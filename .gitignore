@@ -4,4 +4,3 @@ dist/
 
 src/uploads/users/**.*
 src/uploads/campaigns/**.*
-/src/public/
