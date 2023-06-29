@@ -51,3 +51,51 @@ export const getCampaignById = async (req: Request, res: Response) => {
 		});
 	}
 };
+
+export const updateCampaign = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	const { title, description, playersNeeded, currentPlayers } = req.body;
+
+	try {
+		const campaign = await Campaign.findByIdAndUpdate(
+			id,
+			{
+				title,
+				description,
+				playersNeeded,
+				currentPlayers,
+			},
+			{ new: true }
+		);
+		if (!campaign) {
+			return res.status(404).json({
+				errors: [{ msg: GeneralErrorCodes.NotFound }],
+			});
+		}
+
+		return res.status(200).json({ campaign });
+	} catch (error) {
+		return res.status(500).json({
+			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
+		});
+	}
+};
+
+export const deleteCampaign = async (req: Request, res: Response) => {
+	const { id } = req.params;
+
+	try {
+		const campaign = await Campaign.findByIdAndDelete(id);
+		if (!campaign) {
+			return res.status(404).json({
+				errors: [{ msg: GeneralErrorCodes.NotFound }],
+			});
+		}
+		campaign.deleted = true;
+		return res.status(200).json({ msg: 'Campaign deleted' });
+	} catch (error) {
+		return res.status(500).json({
+			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
+		});
+	}
+};
