@@ -85,9 +85,9 @@ class Server {
 		this.app.use(this.apiPaths.campaigns, campaignRoutes);
 		this.app.use(this.apiPaths.uploads, uploadsRoutes);
 		this.app.use(this.apiPaths.characters, charactersRoutes);
-		// this.app.get('*', (req: Request, res: Response) => {
-		// 	res.sendFile(path.join(__dirname, '../public', 'index.html'));
-		// });
+		this.app.get('*', (req: Request, res: Response) => {
+			res.sendFile(path.join(__dirname, '../public', 'index.html'));
+		});
 	}
 }
 
