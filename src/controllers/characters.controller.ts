@@ -86,7 +86,7 @@ export const updateCharacter = async (req: Request, res: Response) => {
 export const getCharactersByUserId = async (req: Request, res: Response) => {
 	const { id } = req.params;
 	try {
-		const characters = await Character.find({ creator: id })
+		let characters = await Character.find({ creator: id })
 			.select(
 				'characterName characterClass characterRace characterDescription creator'
 			)

@@ -59,6 +59,4 @@ router.put(
 	updateCharacter
 );
 
-router.get('/:creator', [validateSession, validateJWT], getCharactersByUserId);
-
 export default router;
