@@ -7,6 +7,7 @@ import authRoutes from '../routes/auth.routes';
 import commentRoutes from '../routes/comment.routes';
 import campaignRoutes from '../routes/campaign.routes';
 import uploadsRoutes from '../routes/upload.routes';
+import joinCampaignRequestRoutes from '../routes/join-campaign-request.routes';
 import { dbConnection } from '../db/config';
 import { consola } from 'consola';
 import fileUpload from 'express-fileupload';
@@ -21,6 +22,7 @@ class Server {
 		campaigns: '/api/campaigns',
 		comments: '/api/comments',
 		uploads: '/api/uploads',
+		joinCampaignRequests: '/api/join-campaign-requests',
 	};
 
 	constructor() {
@@ -82,6 +84,7 @@ class Server {
 		this.app.use(this.apiPaths.comments, commentRoutes);
 		this.app.use(this.apiPaths.campaigns, campaignRoutes);
 		this.app.use(this.apiPaths.uploads, uploadsRoutes);
+		this.app.use(this.apiPaths.joinCampaignRequests, joinCampaignRequestRoutes);
 		this.app.get('*', (req: Request, res: Response) => {
 			res.sendFile(path.join(__dirname, '../public', 'index.html'));
 		});
