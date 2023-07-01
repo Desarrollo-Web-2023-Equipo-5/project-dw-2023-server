@@ -17,6 +17,7 @@ import {
 import { UserErrorCodes } from '../helpers/error-codes';
 import { validateJWT } from '../middlewares/validate-JWT';
 import { validateSession } from '../middlewares/validate-session';
+import { getCharactersByUserId } from '../controllers/characters.controller';
 
 export const router = Router();
 
@@ -100,6 +101,12 @@ router.get(
 		validateFields,
 	],
 	getUserCampaigns
+);
+
+router.get(
+	'/:id/characters',
+	[validateSession, validateJWT],
+	getCharactersByUserId
 );
 
 export default router;

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import {
 	createCharacter,
 	getCharactersById,
+	getCharactersByUserId,
 	updateCharacter,
 } from '../controllers/characters.controller';
 import { validateSession } from '../middlewares/validate-session';
@@ -57,5 +58,7 @@ router.put(
 	],
 	updateCharacter
 );
+
+router.get('/:creator', [validateSession, validateJWT], getCharactersByUserId);
 
 export default router;
