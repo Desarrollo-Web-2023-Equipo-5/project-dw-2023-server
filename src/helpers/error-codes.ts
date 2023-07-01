@@ -51,6 +51,7 @@ export enum JoinCampaignRequestErrorCodes {
 	RequestIdRequired = 'ERR_JOIN_CAMPAIGN_REQUEST_ID_REQUIRED',
 	RequestIdInvalid = 'ERR_JOIN_CAMPAIGN_REQUEST_ID_INVALID',
 	RequestStatusInvalid = 'ERR_JOIN_CAMPAIGN_REQUEST_STATUS_INVALID',
+	RequestAlreadyExists = 'ERR_JOIN_CAMPAIGN_REQUEST_ALREADY_EXISTS',
 }
 
 export enum CharacterErrorCodes {
