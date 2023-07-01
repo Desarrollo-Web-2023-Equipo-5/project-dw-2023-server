@@ -96,13 +96,16 @@ export const setRequestStatus = async (req: Request, res: Response) => {
 	}
 };
 
-// Get all requests made by a user to join campaigns
-export const getRequestsByUser = async (req: Request, res: Response) => {
+const getOfUser = async (
+	req: Request,
+	res: Response,
+	sentByCreator: boolean
+) => {
 	const { userId } = req.params;
 	try {
 		const requests = await JoinCampaignRequest.find({
 			user: userId,
-			isSentByCreator: false,
+			isSentByCreator: sentByCreator,
 		});
 		return res.status(200).json({ requests });
 	} catch (error) {
@@ -113,13 +116,32 @@ export const getRequestsByUser = async (req: Request, res: Response) => {
 	}
 };
 
+// Get all requests made by a user to join campaigns
+export const getRequestsByUser = async (req: Request, res: Response) => {
+	return await getOfUser(req, res, false);
+};
+
 // Get all invitations received by a user to join campaigns
 export const getInvitationsForUser = async (req: Request, res: Response) => {
-	const { userId } = req.params;
+	return await getOfUser(req, res, true);
+};
+
+const getOfCreator = async (
+	req: Request,
+	res: Response,
+	sentByCreator: boolean
+) => {
+	const { creatorId } = req.params;
+
 	try {
+		const campaigns = await Campaign.find({ creator: creatorId })
+			.select('_id')
+			.exec();
+		const campaignIds = campaigns.map(campaign => campaign._id);
+
 		const requests = await JoinCampaignRequest.find({
-			user: userId,
-			isSentByCreator: true,
+			campaign: { $in: campaignIds },
+			isSentByCreator: sentByCreator,
 		});
 		return res.status(200).json({ requests });
 	} catch (error) {
@@ -132,45 +154,10 @@ export const getInvitationsForUser = async (req: Request, res: Response) => {
 
 // Get all requests sent by a creator to invite users to campaigns
 export const getInvitationsByCreator = async (req: Request, res: Response) => {
-	const { creatorId } = req.params;
-
-	try {
-		const campaigns = await Campaign.find({ creator: creatorId })
-			.select('_id')
-			.exec();
-		const campaignIds = campaigns.map(campaign => campaign._id);
-
-		const request = await JoinCampaignRequest.find({
-			campaign: { $in: campaignIds },
-			isSentByCreator: true,
-		});
-		return res.status(200).json({ request });
-	} catch (error) {
-		console.error(error);
-		return res.status(500).json({
-			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
-		});
-	}
+	return await getOfCreator(req, res, true);
 };
 
 // Get all requests received by a creator from users asking to join campaigns
 export const getRequestsForCreator = async (req: Request, res: Response) => {
-	const { creatorId } = req.params;
-	try {
-		const campaigns = await Campaign.find({ creator: creatorId })
-			.select('_id')
-			.exec();
-		const campaignIds = campaigns.map(campaign => campaign._id);
-
-		const request = await JoinCampaignRequest.find({
-			campaign: { $in: campaignIds },
-			isSentByCreator: false,
-		});
-		return res.status(200).json({ request });
-	} catch (error) {
-		console.error(error);
-		return res.status(500).json({
-			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
-		});
-	}
+	return await getOfCreator(req, res, false);
 };
