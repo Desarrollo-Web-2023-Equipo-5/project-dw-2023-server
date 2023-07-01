@@ -2,6 +2,7 @@ import { Router } from 'express';
 import {
 	createCharacter,
 	getCharactersById,
+	getCharactersByUserId,
 	updateCharacter,
 } from '../controllers/characters.controller';
 import { validateSession } from '../middlewares/validate-session';
@@ -36,26 +37,6 @@ router.post(
 	createCharacter
 );
 
-router.put(
-	'/:id',
-	[
-		validateSession,
-		validateJWT,
-		check('characterName', 'Character Name is required')
-			.not()
-			.isEmpty()
-			.withMessage(CharacterErrorCodes.CharacterNameRequired),
-		check('description', 'Description is required')
-			.not()
-			.isEmpty()
-			.withMessage(CharacterErrorCodes.CharacterDescriptionRequired),
-		check('playersNeeded', 'Players needed is required')
-			.not()
-			.isEmpty()
-			.withMessage(CharacterErrorCodes.CharacterPlayersNeededRequired),
-		validateFields,
-	],
-	updateCharacter
-);
+router.put('/:id', [validateSession, validateJWT], updateCharacter);
 
 export default router;

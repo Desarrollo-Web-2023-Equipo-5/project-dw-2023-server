@@ -19,7 +19,7 @@ export const getCharactersById = async (req: Request, res: Response) => {
 			character,
 		});
 	} catch (error) {
-		console.log(error);
+		console.error(error);
 		res.status(500).json({
 			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
 		});
@@ -29,12 +29,12 @@ export const getCharactersById = async (req: Request, res: Response) => {
 export const getCharacters = async (req: Request, res: Response) => {
 	try {
 		const characters = await Character.find();
-		res.json({
+		return res.status(200).json({
 			characters,
 		});
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({
+		return res.status(500).json({
 			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
 		});
 	}
@@ -46,12 +46,12 @@ export const createCharacter = async (req: Request, res: Response) => {
 	const character = new Character(req.body);
 	try {
 		const characterDB = await character.save();
-		res.json({
+		return res.status(200).json({
 			character: characterDB,
 		});
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({
+		return res.status(500).json({
 			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
 		});
 	}
@@ -72,12 +72,31 @@ export const updateCharacter = async (req: Request, res: Response) => {
 			},
 			{ new: true }
 		);
-		res.json({
+		return res.status(200).json({
 			character,
 		});
 	} catch (error) {
 		console.log(error);
-		res.status(500).json({
+		return res.status(500).json({
+			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
+		});
+	}
+};
+
+export const getCharactersByUserId = async (req: Request, res: Response) => {
+	const { id } = req.params;
+	try {
+		let characters = await Character.find({ creator: id })
+			.select(
+				'characterName characterClass characterRace characterDescription creator'
+			)
+			.populate('creator', 'username');
+		return res.status(200).json({
+			characters,
+		});
+	} catch (error) {
+		console.log(error);
+		return res.status(500).json({
 			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
 		});
 	}

@@ -4,6 +4,7 @@ import User from '../models/user.model';
 import { IUser } from '../interfaces/user.interface';
 import { GeneralErrorCodes } from '../helpers/error-codes';
 import Campaign from '../models/campaign.model';
+import Character from '../models/character.model';
 
 export const createUser = async (req: Request, res: Response) => {
 	const { username, email, password, img } = req.body;
@@ -22,6 +23,14 @@ export const createUser = async (req: Request, res: Response) => {
 	// Save user
 	try {
 		await user.save();
+		const newCharacter = new Character({
+			characterName: '-',
+			characterClass: '-',
+			characterDescription: '-',
+			characterRace: '-',
+			creator: user.id,
+		});
+		await newCharacter.save();
 
 		return res.status(201).json({
 			msg: 'User created',
