@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
-import { GeneralErrorCodes } from '../helpers/error-codes';
+import {
+	GeneralErrorCodes,
+	JoinCampaignRequestErrorCodes,
+} from '../helpers/error-codes';
 import JoinCampaignRequest from '../models/join-campaign-request.model';
 import Campaign from '../models/campaign.model';
 
@@ -28,7 +31,7 @@ export const getRequestById = async (req: Request, res: Response) => {
 		const request = await JoinCampaignRequest.findById(id);
 		if (!request) {
 			return res.status(404).json({
-				errors: [{ msg: GeneralErrorCodes.NotFound }],
+				errors: [{ msg: JoinCampaignRequestErrorCodes.RequestNotFound }],
 			});
 		}
 		return res.status(200).json({ request });
@@ -47,7 +50,7 @@ export const deleteRequest = async (req: Request, res: Response) => {
 		const delRequest = await JoinCampaignRequest.findByIdAndDelete(id);
 		if (!delRequest) {
 			return res.status(404).json({
-				errors: [{ msg: GeneralErrorCodes.NotFound }],
+				errors: [{ msg: JoinCampaignRequestErrorCodes.RequestNotFound }],
 			});
 		}
 		return res.status(200).json({ delRequest });
@@ -65,7 +68,7 @@ export const setRequestStatus = async (req: Request, res: Response) => {
 
 	if (!['accepted', 'rejected'].includes(status)) {
 		return res.status(400).json({
-			errors: [{ msg: GeneralErrorCodes.BadRequest }],
+			errors: [{ msg: JoinCampaignRequestErrorCodes.RequestStatusInvalid }],
 		});
 	}
 
@@ -80,7 +83,7 @@ export const setRequestStatus = async (req: Request, res: Response) => {
 
 		if (!updatedRequest) {
 			return res.status(404).json({
-				errors: [{ msg: GeneralErrorCodes.NotFound }],
+				errors: [{ msg: JoinCampaignRequestErrorCodes.RequestNotFound }],
 			});
 		}
 
