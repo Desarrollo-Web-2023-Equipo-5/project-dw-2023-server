@@ -106,7 +106,9 @@ const getOfUser = async (
 		const requests = await JoinCampaignRequest.find({
 			user: userId,
 			isSentByCreator: sentByCreator,
-		});
+		})
+			.populate('user', 'username')
+			.populate('campaign', 'title');
 		return res.status(200).json({ requests });
 	} catch (error) {
 		console.error(error);
@@ -142,7 +144,9 @@ const getOfCreator = async (
 		const requests = await JoinCampaignRequest.find({
 			campaign: { $in: campaignIds },
 			isSentByCreator: sentByCreator,
-		});
+		})
+			.populate('user', 'username')
+			.populate('campaign', 'title');
 		return res.status(200).json({ requests });
 	} catch (error) {
 		console.error(error);
