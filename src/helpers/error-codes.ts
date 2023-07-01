@@ -46,6 +46,17 @@ export enum CampaignErrorCodes {
 	CampaignPlayersNeededRequired = 'ERR_CAMPAIGN_PLAYERS_NEEDED_REQUIRED',
 }
 
+export enum CharacterErrorCodes {
+	CharacterNotFound = 'ERR_CHARACTER_NOT_FOUND',
+	CharacterIdRequired = 'ERR_CHARACTER_ID_REQUIRED',
+	CharacterIdInvalid = 'ERR_CHARACTER_ID_INVALID',
+	CharacterNameRequired = 'ERR_CHARACTER_NAME_REQUIRED',
+	CharacterNameInvalid = 'ERR_CHARACTER_NAME_INVALID',
+	CharacterDescriptionRequired = 'ERR_CHARACTER_DESCRIPTION_REQUIRED',
+	CharacterDescriptionInvalid = 'ERR_CHARACTER_DESCRIPTION_INVALID',
+	CharacterPlayersNeededRequired = 'ERR_CHARACTER_PLAYERS_NEEDED_REQUIRED',
+}
+
 export enum DbErrors {
 	CollectionNotSupported = 'ERR_COLLECTION_NOT_SUPPORTED',
 }

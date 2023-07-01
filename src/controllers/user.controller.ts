@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 import User from '../models/user.model';
 import { IUser } from '../interfaces/user.interface';
 import { GeneralErrorCodes } from '../helpers/error-codes';
+import Campaign from '../models/campaign.model';
 
 export const createUser = async (req: Request, res: Response) => {
 	const { username, email, password, img } = req.body;
@@ -97,5 +98,17 @@ export const getAllUsers = async (req: Request, res: Response) => {
 	return res.status(200).json({
 		total,
 		users,
+	});
+};
+
+export const getUserCampaigns = async (req: Request, res: Response) => {
+	const { id } = req.params;
+
+	const campaigns = await Campaign.find({ deleted: false, creator: id }).select(
+		'description title currentPlayers playersNeeded img'
+	);
+
+	return res.status(200).json({
+		campaigns,
 	});
 };

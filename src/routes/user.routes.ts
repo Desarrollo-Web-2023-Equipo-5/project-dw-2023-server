@@ -4,6 +4,7 @@ import {
 	deleteUser,
 	getAllUsers,
 	getUserById,
+	getUserCampaigns,
 	updateUser,
 } from '../controllers/user.controller';
 import { check } from 'express-validator';
@@ -86,5 +87,19 @@ router.delete(
 
 // Get all users
 router.get('/', [validateSession, validateJWT], getAllUsers);
+
+// Get user Campaigns
+router.get(
+	'/:id/campaigns',
+	[
+		// middlewares
+		validateSession,
+		validateJWT,
+		check('id', 'Id is not valid').isMongoId(),
+		check('id').custom(userExists),
+		validateFields,
+	],
+	getUserCampaigns
+);
 
 export default router;
