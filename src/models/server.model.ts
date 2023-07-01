@@ -23,7 +23,7 @@ class Server {
 		campaigns: '/api/campaigns',
 		comments: '/api/comments',
 		uploads: '/api/uploads',
-		joinCampaignRequests: '/api/join-campaign-requests',
+		joinCampaignRequests: '/api/requests',
 		characters: '/api/characters',
 	};
 

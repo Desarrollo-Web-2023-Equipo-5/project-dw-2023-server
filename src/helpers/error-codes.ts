@@ -46,6 +46,13 @@ export enum CampaignErrorCodes {
 	CampaignPlayersNeededRequired = 'ERR_CAMPAIGN_PLAYERS_NEEDED_REQUIRED',
 }
 
+export enum JoinCampaignRequestErrorCodes {
+	RequestNotFound = 'ERR_JOIN_CAMPAIGN_REQUEST_NOT_FOUND',
+	RequestIdRequired = 'ERR_JOIN_CAMPAIGN_REQUEST_ID_REQUIRED',
+	RequestIdInvalid = 'ERR_JOIN_CAMPAIGN_REQUEST_ID_INVALID',
+	RequestStatusInvalid = 'ERR_JOIN_CAMPAIGN_REQUEST_STATUS_INVALID',
+}
+
 export enum CharacterErrorCodes {
 	CharacterNotFound = 'ERR_CHARACTER_NOT_FOUND',
 	CharacterIdRequired = 'ERR_CHARACTER_ID_REQUIRED',
