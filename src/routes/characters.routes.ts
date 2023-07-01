@@ -37,26 +37,6 @@ router.post(
 	createCharacter
 );
 
-router.put(
-	'/:id',
-	[
-		validateSession,
-		validateJWT,
-		check('characterName', 'Character Name is required')
-			.not()
-			.isEmpty()
-			.withMessage(CharacterErrorCodes.CharacterNameRequired),
-		check('description', 'Description is required')
-			.not()
-			.isEmpty()
-			.withMessage(CharacterErrorCodes.CharacterDescriptionRequired),
-		check('playersNeeded', 'Players needed is required')
-			.not()
-			.isEmpty()
-			.withMessage(CharacterErrorCodes.CharacterPlayersNeededRequired),
-		validateFields,
-	],
-	updateCharacter
-);
+router.put('/:id', [validateSession, validateJWT], updateCharacter);
 
 export default router;

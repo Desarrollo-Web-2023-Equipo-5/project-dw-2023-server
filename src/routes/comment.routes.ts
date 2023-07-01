@@ -20,9 +20,6 @@ router.post(
 	[
 		validateSession,
 		validateJWT,
-		check('creator', 'Id is not valid')
-			.isMongoId()
-			.withMessage(UserErrorCodes.UserIdInvalid),
 		check('content', 'Content is required')
 			.not()
 			.isEmpty()
