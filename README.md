@@ -97,3 +97,103 @@ _Logs out._
 - **Method:**
 
   `POST`
+
+<hr>
+
+# **JOIN CAMPAIGN REQUEST ENDPOINTS**
+
+## **Create Request**
+
+_Creates a new join campaign request._
+
+- **URL**
+
+  `api/requests`
+
+- **Method:**
+
+  `POST`
+
+## **Get Request by ID**
+
+_Gets a specific join campaign request by its id._
+
+- **URL**
+
+  `api/requests/:id`
+
+- **Method:**
+
+  `GET`
+
+## **Set Request Status**
+
+_Sets a status for a specific join campaign request._
+
+- **URL**
+
+  `api/requests/:id`
+
+- **Method:**
+
+  `PUT`
+
+## **Delete Request**
+
+_Deletes a specific join campaign request._
+
+- **URL**
+
+  `api/requests/:id`
+
+- **Method:**
+
+  `DELETE`
+
+## **Get All Requests by User**
+
+_Gets all requests made by a user to join campaigns._
+
+- **URL**
+
+  `api/requests/by-user/:userId`
+
+- **Method:**
+
+  `GET`
+
+## **Get All Invitations for User**
+
+_Gets all invitations received by a user to join campaigns._
+
+- **URL**
+
+  `api/requests/for-user/:userId`
+
+- **Method:**
+
+  `GET`
+
+## **Get All Invitations by Creator**
+
+_Gets all requests sent by a creator to invite users to campaigns._
+
+- **URL**
+
+  `api/requests/by-creator/:creatorId`
+
+- **Method:**
+
+  `GET`
+
+## **Get All Requests for Creator**
+
+_Gets all requests received by a creator from users asking to join campaigns._
+
+- **URL**
+
+  `api/requests/for-creator/:creatorId`
+
+- **Method:**
+
+  `GET`
