@@ -4,8 +4,10 @@ import {
 	deleteRequest,
 	getRequestById,
 	setRequestStatus,
-	getRequestsInitiatedByUser,
-	getRequestsInitiatedByCreator,
+	getRequestsByUser,
+	getInvitationsForUser,
+	getInvitationsByCreator,
+	getRequestsForCreator,
 } from '../controllers/join-campaign-request.controller';
 import { validateJWT } from '../middlewares/validate-JWT';
 import { validateSession } from '../middlewares/validate-session';
@@ -50,18 +52,32 @@ router.put(
 // Delete request
 router.delete('/:id', [validateSession, validateJWT], deleteRequest);
 
-// Get requests initiated by user
+// Get all requests made by a user to join campaigns
 router.get(
-	'/user/:userId',
+	'/by-user/:userId',
 	[validateSession, validateJWT],
-	getRequestsInitiatedByUser
+	getRequestsByUser
 );
 
-// Get requests initiated by creator
+// Get all invitations received by a user to join campaigns
 router.get(
-	'/creator/:userId',
+	'/for-user/:userId',
 	[validateSession, validateJWT],
-	getRequestsInitiatedByCreator
+	getInvitationsForUser
+);
+
+// Get all requests sent by a creator to invite users to campaigns
+router.get(
+	'/by-creator/:creatorId',
+	[validateSession, validateJWT],
+	getInvitationsByCreator
+);
+
+// Get all requests received by a creator from users asking to join campaigns
+router.get(
+	'/for-creator/:creatorId',
+	[validateSession, validateJWT],
+	getRequestsForCreator
 );
 
 export default router;

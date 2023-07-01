@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { GeneralErrorCodes } from '../helpers/error-codes';
 import JoinCampaignRequest from '../models/join-campaign-request.model';
+import Campaign from '../models/campaign.model';
 
 export const createRequest = async (req: Request, res: Response) => {
 	const requestData = req.body;
@@ -92,21 +93,15 @@ export const setRequestStatus = async (req: Request, res: Response) => {
 	}
 };
 
-export const getRequestsInitiatedByUser = async (
-	req: Request,
-	res: Response
-) => {
+// Get all requests made by a user to join campaigns
+export const getRequestsByUser = async (req: Request, res: Response) => {
 	const { userId } = req.params;
-
 	try {
-		const joinRequests = await JoinCampaignRequest.find({
+		const requests = await JoinCampaignRequest.find({
 			user: userId,
 			isSentByCreator: false,
-		})
-			.populate('user', 'username')
-			.populate('campaign', 'title');
-
-		return res.status(200).json({ joinRequests });
+		});
+		return res.status(200).json({ requests });
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({
@@ -115,21 +110,60 @@ export const getRequestsInitiatedByUser = async (
 	}
 };
 
-export const getRequestsInitiatedByCreator = async (
-	req: Request,
-	res: Response
-) => {
+// Get all invitations received by a user to join campaigns
+export const getInvitationsForUser = async (req: Request, res: Response) => {
 	const { userId } = req.params;
-
 	try {
-		const joinRequests = await JoinCampaignRequest.find({
+		const requests = await JoinCampaignRequest.find({
 			user: userId,
 			isSentByCreator: true,
-		})
-			.populate('user', 'username')
-			.populate('campaign', 'title');
+		});
+		return res.status(200).json({ requests });
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({
+			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
+		});
+	}
+};
 
-		return res.status(200).json({ joinRequests });
+// Get all requests sent by a creator to invite users to campaigns
+export const getInvitationsByCreator = async (req: Request, res: Response) => {
+	const { creatorId } = req.params;
+
+	try {
+		const campaigns = await Campaign.find({ creator: creatorId })
+			.select('_id')
+			.exec();
+		const campaignIds = campaigns.map(campaign => campaign._id);
+
+		const request = await JoinCampaignRequest.find({
+			campaign: { $in: campaignIds },
+			isSentByCreator: true,
+		});
+		return res.status(200).json({ request });
+	} catch (error) {
+		console.error(error);
+		return res.status(500).json({
+			errors: [{ msg: GeneralErrorCodes.InternalServerError }],
+		});
+	}
+};
+
+// Get all requests received by a creator from users asking to join campaigns
+export const getRequestsForCreator = async (req: Request, res: Response) => {
+	const { creatorId } = req.params;
+	try {
+		const campaigns = await Campaign.find({ creator: creatorId })
+			.select('_id')
+			.exec();
+		const campaignIds = campaigns.map(campaign => campaign._id);
+
+		const request = await JoinCampaignRequest.find({
+			campaign: { $in: campaignIds },
+			isSentByCreator: false,
+		});
+		return res.status(200).json({ request });
 	} catch (error) {
 		console.error(error);
 		return res.status(500).json({
