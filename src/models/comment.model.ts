@@ -13,7 +13,7 @@ const CommentSchema = new Schema<IComment>(
 			ref: 'Post',
 			default: null,
 		},
-		message: {
+		content: {
 			type: String,
 			required: true,
 		},
@@ -27,16 +27,24 @@ const CommentSchema = new Schema<IComment>(
 			default: false,
 		},
 		createdAt: {
-			type: Number,
-			default: Date.now(),
+			type: Date,
+			default: Date.now,
 		},
 		updatedAt: {
-			type: Number,
-			default: Date.now(),
+			type: Date,
+			default: Date.now,
 		},
 	},
 	{ versionKey: false }
 );
+
+CommentSchema.methods.toJSON = function () {
+	const { _id, ...comment } = this.toObject();
+	comment.id = _id;
+	comment.creator.id = comment.creator._id;
+	delete comment.creator._id;
+	return comment;
+};
 
 const Comment = mongoose.model<IComment>('Comment', CommentSchema);
 

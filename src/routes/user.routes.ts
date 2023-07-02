@@ -4,6 +4,7 @@ import {
 	deleteUser,
 	getAllUsers,
 	getUserById,
+	getUserCampaigns,
 	updateUser,
 } from '../controllers/user.controller';
 import { check } from 'express-validator';
@@ -14,6 +15,9 @@ import {
 	userNameExists,
 } from '../helpers/db-validators';
 import { UserErrorCodes } from '../helpers/error-codes';
+import { validateJWT } from '../middlewares/validate-JWT';
+import { validateSession } from '../middlewares/validate-session';
+import { getCharactersByUserId } from '../controllers/characters.controller';
 
 export const router = Router();
 
@@ -45,6 +49,8 @@ router.get(
 	'/:id',
 	[
 		// middlewares
+		validateSession,
+		validateJWT,
 		check('id', 'Id is not valid').isMongoId(),
 		check('id').custom(userExists),
 		validateFields,
@@ -57,6 +63,8 @@ router.put(
 	'/:id',
 	[
 		// middlewares
+		validateSession,
+		validateJWT,
 		check('id', 'Id is not valid').isMongoId(),
 		check('id').custom(userExists),
 		validateFields,
@@ -69,6 +77,8 @@ router.delete(
 	'/:id',
 	[
 		// middlewares
+		validateSession,
+		validateJWT,
 		check('id', 'Id is not valid').isMongoId(),
 		check('id').custom(userExists),
 		validateFields,
@@ -76,6 +86,27 @@ router.delete(
 	deleteUser
 );
 
-router.get('/', getAllUsers);
+// Get all users
+router.get('/', [validateSession, validateJWT], getAllUsers);
+
+// Get user Campaigns
+router.get(
+	'/:id/campaigns',
+	[
+		// middlewares
+		validateSession,
+		validateJWT,
+		check('id', 'Id is not valid').isMongoId(),
+		check('id').custom(userExists),
+		validateFields,
+	],
+	getUserCampaigns
+);
+
+router.get(
+	'/:id/characters',
+	[validateSession, validateJWT],
+	getCharactersByUserId
+);
 
 export default router;

@@ -19,22 +19,41 @@ const UserSchema = new Schema<IUser>(
 		},
 		img: {
 			type: String,
+			default:
+				'https://res.cloudinary.com/djwoedoon/image/upload/v1688253247/iufy6kchwl7dghllsrjg.png',
+		},
+		isLookingForGroup: {
+			type: Boolean,
+			default: false,
 		},
 		createdAt: {
-			type: Number,
-			default: Date.now(),
+			type: Date,
+			default: Date.now,
 		},
 		updatedAt: {
-			type: Number,
-			default: Date.now(),
+			type: Date,
+			default: Date.now,
 		},
 		deleted: {
 			type: Boolean,
 			default: false,
 		},
+		sessions: [
+			{
+				type: Schema.Types.ObjectId,
+				ref: 'Session',
+				default: [],
+			},
+		],
 	},
 	{ versionKey: false }
 );
+
+UserSchema.methods.toJSON = function () {
+	const { __v, password, _id, ...user } = this.toObject();
+	user.id = _id;
+	return user;
+};
 
 const User = mongoose.model<IUser>('User', UserSchema);
 

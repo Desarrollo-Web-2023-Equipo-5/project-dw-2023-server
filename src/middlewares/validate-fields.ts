@@ -6,9 +6,8 @@ export const validateFields = (req: Request, res: Response, next: any) => {
 
 	if (!errors.isEmpty()) {
 		return res.status(400).json({
-			errors: errors.mapped(),
+			errors: errors.array(),
 		});
 	}
-
 	next();
 };
