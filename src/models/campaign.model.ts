@@ -18,11 +18,11 @@ const CampaignSchema = new Schema<ICampaign>(
 		},
 		createdAt: {
 			type: Date,
-			default: Date.now(),
+			default: Date.now,
 		},
 		updatedAt: {
 			type: Date,
-			default: Date.now(),
+			default: Date.now,
 		},
 		title: {
 			type: String,

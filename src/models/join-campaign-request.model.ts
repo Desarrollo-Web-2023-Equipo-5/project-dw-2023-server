@@ -11,15 +11,15 @@ const JoinCampaignRequestSchema = new Schema<IJoinCampaignRequest>(
 			enum: ['pending', 'accepted', 'rejected'],
 			default: 'pending',
 		},
-		createdAt: { type: Number, default: Date.now },
-		updatedAt: { type: Number, default: Date.now },
+		createdAt: { type: Date, default: Date.now },
+		updatedAt: { type: Date, default: Date.now },
 	},
 	{ versionKey: false }
 );
 
 JoinCampaignRequestSchema.pre<IJoinCampaignRequest>('save', function (next) {
 	if (!this.isNew) {
-		this.updatedAt = Date.now();
+		this.updatedAt = new Date();
 	}
 	next();
 });

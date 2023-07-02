@@ -7,6 +7,6 @@ export interface IJoinCampaignRequest extends Document {
 	campaign: ICampaign['_id'];
 	isSentByCreator: boolean;
 	status: 'pending' | 'accepted' | 'rejected';
-	createdAt?: number;
-	updatedAt?: number;
+	createdAt?: Date;
+	updatedAt?: Date;
 }
