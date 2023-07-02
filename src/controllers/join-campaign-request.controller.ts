@@ -8,6 +8,18 @@ import Campaign from '../models/campaign.model';
 
 export const createRequest = async (req: Request, res: Response) => {
 	const requestData = req.body;
+	const { user, campaign } = requestData;
+
+	const existingRequest = await JoinCampaignRequest.findOne({
+		user,
+		campaign,
+	});
+	if (existingRequest) {
+		return res.status(409).json({
+			errors: [{ msg: JoinCampaignRequestErrorCodes.RequestAlreadyExists }],
+		});
+	}
+
 	const joinCampaignRequest = new JoinCampaignRequest(requestData);
 
 	try {
