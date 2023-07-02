@@ -7,8 +7,8 @@ export interface ICampaign {
 	description: string;
 	playersNeeded: number;
 	currentPlayers: Types.ObjectId[];
-	createdAt?: number;
-	updatedAt?: number;
+	createdAt?: Date;
+	updatedAt?: Date;
 	deleted: boolean;
 	img: string;
 }

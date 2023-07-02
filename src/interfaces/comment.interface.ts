@@ -6,7 +6,7 @@ export interface IComment {
 	postRef?: Types.ObjectId;
 	creator: Types.ObjectId;
 	content: string;
-	createdAt?: number;
-	updatedAt?: number;
+	createdAt?: Date;
+	updatedAt?: Date;
 	deleted: boolean;
 }
