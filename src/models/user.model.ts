@@ -28,11 +28,11 @@ const UserSchema = new Schema<IUser>(
 		},
 		createdAt: {
 			type: Date,
-			default: Date.now(),
+			default: Date.now,
 		},
 		updatedAt: {
 			type: Date,
-			default: Date.now(),
+			default: Date.now,
 		},
 		deleted: {
 			type: Boolean,

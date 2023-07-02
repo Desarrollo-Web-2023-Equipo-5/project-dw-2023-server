@@ -11,11 +11,11 @@ const SessionSchema = new Schema<ISession>(
 		},
 		createdAt: {
 			type: Date,
-			default: Date.now(),
+			default: Date.now,
 		},
 		expiresAt: {
 			type: Date,
-			default: Date.now() + 1000 * 60 * 60 * 24, // 7 days
+			default: () => Date.now() + 1000 * 60 * 60 * 24 * 7, // 7 days
 		},
 		active: {
 			type: Boolean,
